@@ -382,7 +382,7 @@ li.other > a::before {
 li.other > a:hover::before {
     left: 0;
 }
-.header .container nav ul .mega .other-links {
+.header .container nav ul .mega .hidden {
     background-color: white;
     visibility: hidden;
     opacity: 0;
@@ -409,14 +409,25 @@ li.other > a:hover::before {
     border-bottom: 3px solid var(--main-color);
     border-top: 1px solid var(--section-background);
 }
-.header .container nav ul.main-nav .mega:hover.mega .other-links {
-    opacity: 1;
+
+.visible {
+    background-color: white;
     visibility: visible;
+    opacity: 1;
+    position: absolute;
+    left: 50%;
+    z-index: 30;
     transform: translateX(-50%) translateY(0);
     -webkit-transform: translateX(-50%) translateY(0);
     -moz-transform: translateX(-50%) translateY(0);
     -ms-transform: translateX(-50%) translateY(0);
     -o-transform: translateX(-50%) translateY(0);
+    transition: .3s;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -ms-transition: .3s;
+    -o-transition: .3s;
+    width: 90%;
 }
 @media (max-width: 991px) {
     .header .container nav ul .mega .other-links {
@@ -1360,11 +1371,12 @@ li.other > a:hover::before {
 .skills .container .content .box span.prog {
     background-color: var(--main-color);
     height: 100%;
+    width: 0;
     display: block;
     position: relative;
 }
 .skills .container .content .box .progress span.prog::before {
-    content: attr(data-progress);
+    content: attr(progress-num);
     border: 2px solid var(--section-background);
     position: absolute;
     top: -39px;
@@ -1547,7 +1559,7 @@ li.other > a:hover::before {
     left: 0;
     bottom: 32px;
 }
-.last-events .container .content .counter .box  span {
+.last-events .container .content .counter .box  span:not(.num) {
     color: black;
     font-size: 15px;
     font-weight: normal;
@@ -1816,7 +1828,7 @@ li.other > a:hover::before {
 }
 @media (max-width: 991px) {
     .videos .container {
-        flex-direction: column;
+        flex-flow: column wrap;
     }  
 }
 .videos .container .list {
@@ -1835,22 +1847,25 @@ li.other > a:hover::before {
 .videos .container .list h2 i {
     text-align: end;
 }
-.videos .container .list ul a {
-    text-decoration: none;
-    color: black;
-}
-.videos .container .list ul a:hover li {
+.videos .container .list ul li:hover  {
     background-color: #fafafa;
 }
-.videos .container .list ul a:hover li:not(span) {
+.videos .container .list ul li:hover:not(span) {
     color: var(--main-color);
 }
+.videos .container .list ul li:not(span).active-video {
+    color: var(--main-color);
+    font-weight: bold;
+    background-color: #fafafa;
+}
 .videos .container .list ul li {
+    color: black;
     list-style: none;
     padding: 15px;
     font-size: 15px;
     border-top: 1px solid rgb(184, 184, 184);
     background-color: white;
+    cursor: pointer;
     transition: .3s;
     -webkit-transition: .3s;
     -moz-transition: .3s;
@@ -1866,19 +1881,24 @@ li.other > a:hover::before {
     flex-basis: 70%;
     background-color: rgb(184, 184, 184);
     display: flex;
-    flex-direction: column;
+    flex-flow: column wrap;
     justify-content: space-between;
     align-items: center;
 }
 .videos .container .image img {
     max-width: 100%;
+    display: none;
+}
+.videos .container .image img.selected {
     display: block;
 }
 .videos .container .image span {
-    background-color: white;
-    padding: 15px;
-    width: 80%;
-    margin: 15px;
+    background-color: #191919;
+    margin-bottom: 40px;
+    padding: 20px;
+    width: 100%;
+    font-size: 18px;
+    color: var(--section-background);
 }
 /* end videos */
 /* start stats */
@@ -2230,3 +2250,40 @@ footer .container .box.images img {
     border: 2px solid #cdcdcd;
 }
 /* end footer */
+
+/* scroll to top */
+
+#scroll-to-top {
+    display: none;
+    background-color: var(--main-color);
+    color: white;
+    padding: 7px 14px;
+    font-weight: bold;
+    border: none;
+    font-size: 19px;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 1000;
+    cursor: pointer;
+    box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.3);
+    opacity: 0.7;
+    transition: .3s;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -ms-transition: .3s;
+    -o-transition: .3s;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+#scroll-to-top:hover {
+    opacity: 1;
+}
+@media (max-width: 992px) {
+    #scroll-to-top {
+        display: none !important;
+    }
+}
